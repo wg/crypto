@@ -1,0 +1,68 @@
+High-performance cryptography for the JVM
+
+  Native implementations of a number of cryptographic primitives using
+  optimized instructions such as AES-NI and PCLMUL available on recent
+  x86-64 CPUs. Specifically this library provides:
+
+    * AES in CBC, CTR, and GCM modes
+    * AES + HMAC-SHA2
+    * AES + SHA3 (Keccak-MAC)
+
+  Additionally included are routines for generating cryptographically
+  secure random bytes via the RDRAND instrution and fast constant-time
+  array comparison using SSE2.
+
+  Join the lambdaWorks-OSS Google Group to discuss this project:
+
+    http://groups.google.com/group/lambdaworks-oss
+    lambdaworks-oss@googlegroups.com
+
+Usage
+
+  The goal of this library is to provide secure, high-performance
+  cryptographic primitives using a simple non-JCE interface:
+
+    Cipher cipher = Crypto.cipher(AES, CBC, key, iv)
+    cipher.encrypt(bytes, len)
+
+  Authenticated encryption:
+
+    Cipher cipher = Crypto.cipher(AES, CBC, key, iv)
+    cipher.authenticate(SHA2, 256, key)
+    cipher.encrypt(bytes, len)
+    byte[] mac = cipher.mac()
+
+  Secure random bytes (requires CPU supporting RDRAND):
+
+    Crypto.bytes(iv, len)
+
+Maven Artifacts
+
+  Releases are available in the maven central repository.
+
+  <dependency>
+    <groupId>com.lambdaworks</groupId>
+    <artifactId>crypto</artifactId>
+    <version>1.0.0</version>
+  </dependency>
+
+Cryptography Notice
+
+  This distribution includes cryptographic software. The country in
+  which you currently reside may have restrictions on the import,
+  possession, use, and/or re-export to another country, of encryption
+  software. BEFORE using any encryption software, please check your
+  country's laws, regulations and policies concerning the import,
+  possession, or use, and re-export of encryption software, to see if
+  this is permitted. See <http://www.wassenaar.org/> for more
+  information.
+
+  The U.S. Government Department of Commerce, Bureau of Industry and
+  Security (BIS), has classified this software as Export Commodity
+  Control Number (ECCN) 5D002.C.1, which includes information security
+  software using or performing cryptographic functions with symmetric
+  algorithms. The form and manner of this distribution makes it
+  eligible for export under the License Exception ENC Technology
+  Software Unrestricted (TSU) exception (see the BIS Export
+  Administration Regulations, Section 740.13) for both object code and
+  source code.
